@@ -1,0 +1,141 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API",
+        "description": "Мероприятия и события. Тестовое задание",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/shows": {
+            "get": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Получить список мероприятий",
+                "operationId": "55ce6f52b5c52f030d602a2f1195368a",
+                "responses": {
+                    "200": {
+                        "description": "Список мероприятий"
+                    }
+                }
+            }
+        },
+        "/api/shows/{showId}/events": {
+            "get": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Получить список событий мероприятий",
+                "operationId": "409e2e43937542ab1a268595816c411f",
+                "parameters": [
+                    {
+                        "name": "showId",
+                        "in": "path",
+                        "description": "ID мероприятия",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Список событий мероприятия"
+                    },
+                    "422": {
+                        "description": "Ошибка валидации данных"
+                    }
+                }
+            }
+        },
+        "/api/events/{eventId}/places": {
+            "get": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Получить список мест события",
+                "operationId": "772a3957dafcc982bd8bff7586597971",
+                "parameters": [
+                    {
+                        "name": "eventId",
+                        "in": "path",
+                        "description": "ID события",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Список мест события"
+                    },
+                    "422": {
+                        "description": "Ошибка валидации данных"
+                    }
+                }
+            }
+        },
+        "/api/events/{eventId}/reserve": {
+            "post": {
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Забронировать места события",
+                "operationId": "60bd77d382d151b726d77ecbd7d10932",
+                "parameters": [
+                    {
+                        "name": "eventId",
+                        "in": "path",
+                        "description": "ID события",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "places"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Иван"
+                                    },
+                                    "places": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "integer",
+                                            "example": 101
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Бронь места события"
+                    },
+                    "422": {
+                        "description": "Ошибка валидации данных"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Events",
+            "description": "Events"
+        }
+    ]
+}
